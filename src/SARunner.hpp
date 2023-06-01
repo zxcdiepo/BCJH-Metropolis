@@ -31,7 +31,7 @@ class SARunner {
     History *history;
 
     States generateStates(CList *chefList, CRPairs *chefRecipePairs,
-                          Chef *chefs[NUM_CHEFS]);
+                          Chef *chefs[MAX_CHEFS]);
 
   public:
     int bestEnergy = 0;
@@ -54,7 +54,7 @@ class SARunner {
         e::GetEnergy getEnergyFunc = e::getTotalPrice,
         r::RandomMove randomMoveFunc = r::randomRecipe,
         f::CoolingSchedule coolingScheduleFunc = f::exponential_multiplicative);
-    States run(Chef *chefs[NUM_CHEFS] = NULL, bool progress = false,
+    States run(Chef *chefs[MAX_CHEFS] = NULL, bool progress = false,
                bool silent = false, const char *fn = NULL);
     ~SARunner();
 };

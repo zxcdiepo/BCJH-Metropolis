@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
-#include "../config.hpp"
+#include "globalConfig.hpp"
 #include "Calculator.hpp"
 #include "utils/json.hpp"
 #include "../toolEquipped.hpp"

@@ -1,6 +1,6 @@
 #include "functions.hpp"
 #include "SARunner.hpp"
-#include "../config.hpp"
+#include "globalConfig.hpp"
 #include "banquetRule.hpp"
 #include "exception.hpp"
 #include "activityRule.hpp"
@@ -17,7 +17,7 @@ int e::getTotalPrice(States s, CList *chefList, RList *recipeList,
     return e0::sumPrice(s, chefList, recipeList, chefRecipePairs, verbose,
                         false);
 }
-bool repeatChef(Chef *chef, Chef *chefs[NUM_CHEFS], int except) {
+bool repeatChef(Chef *chef, Chef *chefs[MAX_CHEFS], int except) {
     for (int i = 0; i < NUM_CHEFS; i++) {
         if (except != i && chef->id == chefs[i]->id) {
             return true;
@@ -184,14 +184,15 @@ int e0::sumPrice(States s, CList *chefList, RList *recipeList,
         int ans = 0;
         int d = 0;
         int d2 = 0;
+        int scoreCacheList[CHEFS_PER_GUEST * DISH_PER_CHEF];
         for (int g = 0; g < NUM_GUESTS; g++) {
             d = DISH_PER_CHEF * CHEFS_PER_GUEST * g;
             d2 = CHEFS_PER_GUEST * g;
             totalScore = 0;
             totalFull = 0;
-            scoreCache = 0;
+            scoreCache = 0;            
             fullCache = 0;
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < CHEFS_PER_GUEST * DISH_PER_CHEF; i++) {
                 if ((log & 0x10) && i % 3 == 0) {
                 std::cout << "VERBOSE************" << std::endl;
                 s.chef[d2 + i / 3]->print();
@@ -202,13 +203,16 @@ int e0::sumPrice(States s, CList *chefList, RList *recipeList,
                 totalScore += bi[d + i].price;
                 scoreCache += bi[d + i].price;
                 fullCache += bi[d + i].full;
+                scoreCacheList[i] = bi[d + i].price;
                 if ((log & 0x1) && i % 3 == 2) {
                     std::cout << "厨师：" << s.chef[d2 + i / 3]->name << " -> "
                             << fullCache << " / " << scoreCache << std::endl;
                     scoreCache = 0;
                     fullCache = 0;
-                    std::cout << "菜谱：" << s.recipe[d + i - 2]->name << "；"
-                            << s.recipe[d + i - 1]->name << "；" << s.recipe[d + i]->name
+                    std::cout << "菜谱：" 
+                            << s.recipe[d + i - 2]->name << "(" << scoreCacheList[i - 2] << ")" << "；"
+                            << s.recipe[d + i - 1]->name << "(" << scoreCacheList[i - 1] << ")" << "；" 
+                            << s.recipe[d + i]->name << "(" << scoreCacheList[i] << ")" << "；" 
                             << std::endl;
                 }
             } 

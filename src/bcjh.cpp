@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include "globalConfig.hpp"
+#include "interface.hpp"
 #include "Chef.hpp"
 #include "Recipe.hpp"
 #include <map>
@@ -7,7 +9,6 @@
 #include <vector>
 #include "SARunner.hpp"
 #include "functions.hpp"
-#include "../config.hpp"
 #include <unistd.h>
 #include <stdio.h>
 #include <fstream>
@@ -47,6 +48,11 @@ int main(int argc, char *argv[]) {
     std::map<int, Chef> chefList0, chefList;
     std::map<int, Recipe> recipeList;
     try {
+        readbcjhConfig();
+        std::cout << "NUM_GUESTS:" << NUM_GUESTS << std::endl;
+        std::cout << "GUESTS_ID :";
+        for (int i = 0; i < NUM_GUESTS; i++) std::cout << guestList[i] << " ";
+        std::cout << std::endl << "NUM_CHEFS:" << NUM_CHEFS << std::endl;
         loadChef(chefList0);
         loadRecipe(recipeList);
         loadChefTools(chefList0, chefList);

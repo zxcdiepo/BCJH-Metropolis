@@ -4,14 +4,14 @@
 #include "Calculator.hpp"
 #include <algorithm>
 #include <cmath>
-#include "../config.hpp"
+#include "globalConfig.hpp"
 typedef std::map<Chef *, std::vector<Recipe *>> CRPairs;
 typedef std::map<int, Chef> CList;
 typedef std::map<int, Recipe> RList;
 class SARunner;
 struct States {
-    Chef *chef[NUM_CHEFS];
-    Recipe *recipe[DISH_PER_CHEF * NUM_CHEFS];
+    Chef *chef[MAX_CHEFS];
+    Recipe *recipe[DISH_PER_CHEF * MAX_CHEFS];
 };
 namespace r00 {
 // void unrepeatedRandomChef(CList *, Chef **&, int);

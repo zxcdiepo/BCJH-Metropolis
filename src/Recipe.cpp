@@ -7,7 +7,7 @@
 #include "Recipe.hpp"
 #include <vector>
 #include "utils/json.hpp"
-#include "../config.hpp"
+#include "globalConfig.hpp"
 Recipe::Recipe(Json::Value &recipe) {
     this->name = recipe["name"].asString();
     this->id = recipe["recipeId"].asInt();

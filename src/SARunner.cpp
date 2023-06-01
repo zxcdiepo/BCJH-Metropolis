@@ -37,7 +37,7 @@ SARunner::SARunner(CList *chefList, RList *recipeList, CRPairs *chefRecipePairs,
 }
 SARunner::~SARunner() { delete[] this->history; }
 States SARunner::generateStates(CList *chefList, CRPairs *chefRecipePairs,
-                                Chef *chefs[NUM_CHEFS]) {
+                                Chef *chefs[MAX_CHEFS]) {
     States s;
 
     // std::cout << chefs << std::endl;
@@ -77,7 +77,7 @@ States SARunner::generateStates(CList *chefList, CRPairs *chefRecipePairs,
     return s;
 }
 
-States SARunner::run(Chef *chefs[NUM_CHEFS], bool progress, bool silent,
+States SARunner::run(Chef *chefs[MAX_CHEFS], bool progress, bool silent,
                      const char *filename) {
     // std::cout << "Here" << std::endl;
     States s;
@@ -187,7 +187,6 @@ States SARunner::run(Chef *chefs[NUM_CHEFS], bool progress, bool silent,
 void SARunner::print(States s, bool verbose) {
     int r = 0;
     for (int i = 0; i < NUM_CHEFS; i++) {
-
         std::cout << "Chef: " << s.chef[i]->name << std::endl << "Recipe ";
         for (int j = 0; j < DISH_PER_CHEF; j++) {
             std::cout << j << ": " << s.recipe[r++]->name;
