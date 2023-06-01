@@ -3,7 +3,7 @@ name: C/C++ CI
 on:
   push:
     branches:
-    - "main"
+    - "rule_state"
     paths:
     - "data/userData.json"
   workflow_dispatch:
@@ -17,10 +17,10 @@ jobs:
 
     steps:
     # Step 1: run a standard checkout action, provided by github
-    - name: Checkout main
+    - name: Checkout rule_state
       uses: actions/checkout@v3
       with:
-        ref: main
+        ref: rule_state
 
   # # REQUIRED step
   #   # Step 2: run the sync action
