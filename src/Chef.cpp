@@ -41,7 +41,7 @@ void loadChef(std::map<int, Chef> &chefList) {
     Json::Value usrData;
     Json::Value gameData;
     std::ifstream gameDataF("../data/data.min.json", std::ifstream::binary);
-    std::ifstream usrDataF("../data/userData.json", std::ifstream::binary);
+    std::ifstream usrDataF("../data/userData.txt", std::ifstream::binary);
     usrDataF >> usrData;
     usrDataF.close();
     gameDataF >> gameData;

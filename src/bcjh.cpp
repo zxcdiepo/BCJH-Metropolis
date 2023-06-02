@@ -64,7 +64,8 @@ int main(int argc, char *argv[]) {
     } catch (Json::LogicError &e) {
         std::cout << "json文件格式不正确。请确认文件来自白菜菊花而非图鉴网。\n";
         exit(1);
-    }
+    } catch(const char *s) { std::cout << s << std::endl; }
+
 
     CRPairs chefRecipePairs;
     initChefRecipePairs(chefRecipePairs, chefList, recipeList);

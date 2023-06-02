@@ -78,7 +78,7 @@ void loadRecipe(std::map<int, Recipe> &recipeList) {
     gameDataF >> gameData;
     gameDataF.close();
     // std::cout << "Game data loaded" << std::endl;
-    std::ifstream usrDataF("../data/userData.json", std::ifstream::binary);
+    std::ifstream usrDataF("../data/userData.txt", std::ifstream::binary);
     usrDataF >> usrData;
     usrDataF.close();
     Recipe::initRarityBuff(usrData["userUltimate"]);
