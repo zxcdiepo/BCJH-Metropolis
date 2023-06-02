@@ -164,7 +164,7 @@ States SARunner::run(Chef *chefs[MAX_CHEFS], bool progress, bool silent,
         }
         file.close();
         // std::cout <<
-        system("python3 ../src/plot.py &");
+        // system("python3 ../src/plot.py &");
     }
     if (filename) {
 

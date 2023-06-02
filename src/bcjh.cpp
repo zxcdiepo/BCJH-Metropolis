@@ -79,6 +79,7 @@ int main(int argc, char *argv[]) {
     } else {
         calculator(chefList, recipeList, chefRecipePairs);
     }
+    system("pause");
 }
 int run(CList &chefList, RList &recipeList, CRPairs &chefRecipePairs, int log,
         bool silent) {
