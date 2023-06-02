@@ -22,6 +22,8 @@ extern int ITER_RECIPE; // 对于每一组厨师，选择菜谱时的迭代次�
 #define AVOID_CHEF_1 true
 #define AVOID_CHEF_2 true
 #define AVOID_CHEF_3 true // 计算时不考虑三火厨师
+#define AVOID_CHEF_4 true // 计算时不考虑三火厨师
+#define AVOID_CHEF_5 true // 计算时不考虑三火厨师
 
 // ************************************************** //
 // ** 以下内容不建议修改，除非你清楚地知道这是什么意思 ** //

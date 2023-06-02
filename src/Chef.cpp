@@ -65,6 +65,12 @@ void loadChef(std::map<int, Chef> &chefList) {
             if (AVOID_CHEF_3 && chef["rarity"].asInt() == 3) {
                 continue;
             }
+            if (AVOID_CHEF_4 && chef["rarity"].asInt() == 4) {
+                continue;
+            }
+            if (AVOID_CHEF_5 && chef["rarity"].asInt() == 5) {
+                continue;
+            }
 
             if (ultimateSkills.find(id) != ultimateSkills.end()) {
                 chefList[id] = Chef(chef, ultimateSkills[id]);
