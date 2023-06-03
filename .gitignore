@@ -1,10 +1,7 @@
 .vscode/
 build/
 data/backup/
-data/userData.json
+data/userData.txt
 config.hpp
 toolEquipped.hpp
 vcpkg/
-out/
-in/in.txt
-in/out.txt

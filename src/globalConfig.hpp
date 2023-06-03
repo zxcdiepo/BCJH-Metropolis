@@ -10,7 +10,7 @@ extern int NUM_GUESTS;
 extern int NUM_CHEFS;
 extern int guestList[MAX_GUESTS]; 
 
-#define MODE 1 // 1:宴会模式; 2:限时任务
+#define MODE 1 // 1:宴会模式 不要动它
 extern int TARGET_SCORE_APPROXIMATE;
 // 预期达到的分数
 // 如果是限时任务，这里输分数线
@@ -32,14 +32,5 @@ extern bool AVOID_CHEF_5;// 计算时不考虑五火厨师
 #define T_MAX_CHEF TARGET_SCORE_APPROXIMATE / 200 // 选择厨师时的初始温度
 #define T_MAX_RECIPE                                                           \
     TARGET_SCORE_APPROXIMATE / 200 // 对于每一组厨师，选择菜谱时的初始温度
-
-// ************************************* //
-// ** 以下内容不要修改，会造成程序出问题 ** //
-// ************************************* //
-
-#if MODE == 2
-#define SEARCH_TARGET_SCORE                                                    \
-    TARGET_SCORE_APPROXIMATE // 限时任务时，达到这个分数就可以停止搜索
-#endif
 
 #endif

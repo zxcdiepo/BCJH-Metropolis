@@ -9,7 +9,6 @@
 #include <random>
 #include <fstream>
 #include "exception.hpp"
-// #include "activityRule.hpp"
 #include <limits.h>
 SARunner::SARunner(CList *chefList, RList *recipeList, CRPairs *chefRecipePairs,
                    int stepMax, int tMax, int tMin, e::GetEnergy getEnergyFunc,
@@ -25,15 +24,8 @@ SARunner::SARunner(CList *chefList, RList *recipeList, CRPairs *chefRecipePairs,
     this->tMin = tMin;
     this->history = new History[stepMax];
     this->getEnergyFunc = getEnergyFunc;
-#ifdef SEARCH_TARGET_SCORE
-    if (MODE != 2) {
-        std::cout << "config.hpp中改了不该改的东西，请改回来" << std::endl;
-        exit(1);
-    }
-    this->targetScore = SEARCH_TARGET_SCORE;
-#else
+
     this->targetScore = INT_MAX;
-#endif
 }
 SARunner::~SARunner() { delete[] this->history; }
 States SARunner::generateStates(CList *chefList, CRPairs *chefRecipePairs,
@@ -166,20 +158,20 @@ States SARunner::run(Chef *chefs[MAX_CHEFS], bool progress, bool silent,
         // std::cout <<
         // system("python3 ../src/plot.py &");
     }
-    if (filename) {
+    // if (filename) {
 
-        std::fstream file;
-        std::string fn(filename);
-        std::cout << "Saving to file: " << fn + ".csv" << std::endl;
-        file.open(fn + ".csv", std::ios::out);
-        for (int i = 0; i < step; i++) {
-            file << this->history[i].energy << "," << this->history[i].t
-                 << std::endl;
-        }
-        file.close();
-        std::string cmd = "python3 ../src/plot.py -f " + fn + " &";
-        system(cmd.c_str());
-    }
+    //     std::fstream file;
+    //     std::string fn(filename);
+    //     std::cout << "Saving to file: " << fn + ".csv" << std::endl;
+    //     file.open(fn + ".csv", std::ios::out);
+    //     for (int i = 0; i < step; i++) {
+    //         file << this->history[i].energy << "," << this->history[i].t
+    //              << std::endl;
+    //     }
+    //     file.close();
+    //     // std::string cmd = "python3 ../src/plot.py -f " + fn + " &";
+    //     // system(cmd.c_str());
+    // }
 
     return this->bestState;
 }
