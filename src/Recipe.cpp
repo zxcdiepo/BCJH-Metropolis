@@ -114,11 +114,6 @@ void Recipe::initRarityBuff(Json::Value &usrBuff) {
     for (int i = 0; i < 5; i++) {
         rarityBuff[i] = r[i];
     }
-    if (MODE == 2) {
-        for (int i = 0; i < 5; i++) {
-            rarityBuff[i].dishNum = 1;
-        }
-    }
 }
 void Recipe::getMaterials(Json::Value &materialsJson) {
     this->materials.clear();

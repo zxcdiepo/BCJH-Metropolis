@@ -3,7 +3,6 @@
 #include "globalConfig.hpp"
 #include "banquetRule.hpp"
 #include "exception.hpp"
-#include "activityRule.hpp"
 
 namespace r0 {
 States randomRecipe(States &, CList *, RList *, CRPairs *);
@@ -226,41 +225,6 @@ int e0::sumPrice(States s, CList *chefList, RList *recipeList,
             }           
         }
         return ans;
-    } else if (MODE == 2 || MODE == 0) {
-        ActivityBuff activityBuff;
-        auto p = &activityBuff;
-        activityRule(p);
-        if (MODE == 0)
-            p = NULL;
-        int energy = 0;
-        int r = 0;
-        for (int i = 0; i < NUM_CHEFS; i++) {
-            if ((log & 0x10)) {
-                std::cout << "VERBOSE************" << std::endl;
-                s.chef[i]->print();
-                std::cout << "************" << std::endl;
-            }
-            int scoreCache = 0;
-            if (log & 0x1)
-                std::cout << "厨师：" << s.chef[i]->name << std::endl
-                          << "菜谱：";
-            for (int j = 0; j < DISH_PER_CHEF; j++) {
-                if (log & 0x1)
-                    std::cout << s.recipe[r]->name << "；";
-                scoreCache +=
-                    getPrice(*s.chef[i], *s.recipe[r++], p, (log & 0x10));
-            }
-            energy += scoreCache;
-            if (log & 0x1)
-                std::cout << " -> " << scoreCache << std::endl;
-        }
-
-        return energy;
-    } else {
-        std::cout
-            << "config.hpp中MODE设置错误。0为正常营业，1为宴会，2为限时任务"
-            << std::endl;
-        exit(1);
     }
 }
 States r::randomRecipe(States s, CList *chefList, RList *recipeList,
