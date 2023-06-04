@@ -4,6 +4,8 @@
 #include "banquetRule.hpp"
 #include "exception.hpp"
 
+const char* guestName[11] = {"蓝采和", "吕洞宾", "韩湘子", "玉贵人", "苏妲己", "何仙姑", "铁拐李"};
+
 namespace r0 {
 States randomRecipe(States &, CList *, RList *, CRPairs *);
 States swapRecipe(States &, CList *, RList *, CRPairs *);
@@ -204,15 +206,21 @@ int e0::sumPrice(States s, CList *chefList, RList *recipeList,
                 fullCache += bi[d + i].full;
                 scoreCacheList[i] = bi[d + i].price;
                 if ((log & 0x1) && i % 3 == 2) {
-                    std::cout << "厨师：" << s.chef[d2 + i / 3]->name << " -> "
+                    if (i == 2){
+                        std::cout << "贵客：" << guestName[guestList[g]] << std::endl;
+                    }
+                    std::cout << "\t厨师：" << s.chef[d2 + i / 3]->name << " -> "
                             << fullCache << " / " << scoreCache << std::endl;
                     scoreCache = 0;
                     fullCache = 0;
-                    std::cout << "菜谱：" 
+                    std::cout << "\t菜谱：" 
                             << s.recipe[d + i - 2]->name << "(" << scoreCacheList[i - 2] << ")" << "；"
                             << s.recipe[d + i - 1]->name << "(" << scoreCacheList[i - 1] << ")" << "；" 
                             << s.recipe[d + i]->name << "(" << scoreCacheList[i] << ")" << "；" 
                             << std::endl;
+                    if (i == 8){
+                        std::cout << std::endl;
+                    }
                 }
             } 
             switch (totalFull - bestFull[g]) {

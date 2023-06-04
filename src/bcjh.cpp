@@ -48,11 +48,10 @@ int main(int argc, char *argv[]) {
     std::map<int, Chef> chefList0, chefList;
     std::map<int, Recipe> recipeList;
     try {
-        readbcjhConfig();
-        std::cout << "NUM_GUESTS:" << NUM_GUESTS << std::endl;
-        std::cout << "GUESTS_ID :";
-        for (int i = 0; i < NUM_GUESTS; i++) std::cout << guestList[i] << " ";
-        std::cout << std::endl << "NUM_CHEFS:" << NUM_CHEFS << std::endl;
+        MainActivity();
+        // std::cout << "NUM_GUESTS:" << NUM_GUESTS << std::endl;
+        // std::cout << "GUESTS_ID :";
+        // for (int i = 0; i < NUM_GUESTS; i++) std::cout << guestList[i] << " ";
         loadChef(chefList0);
         loadRecipe(recipeList);
         loadChefTools(chefList0, chefList);

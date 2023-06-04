@@ -147,31 +147,6 @@ States SARunner::run(Chef *chefs[MAX_CHEFS], bool progress, bool silent,
         }
         step++;
     }
-    if (progress && !silent) {
-        std::fstream file;
-        file.open("../out/history.csv", std::ios::out);
-        for (int i = 0; i < step; i++) {
-            file << this->history[i].energy << "," << this->history[i].t
-                 << std::endl;
-        }
-        file.close();
-        // std::cout <<
-        // system("python3 ../src/plot.py &");
-    }
-    // if (filename) {
-
-    //     std::fstream file;
-    //     std::string fn(filename);
-    //     std::cout << "Saving to file: " << fn + ".csv" << std::endl;
-    //     file.open(fn + ".csv", std::ios::out);
-    //     for (int i = 0; i < step; i++) {
-    //         file << this->history[i].energy << "," << this->history[i].t
-    //              << std::endl;
-    //     }
-    //     file.close();
-    //     // std::string cmd = "python3 ../src/plot.py -f " + fn + " &";
-    //     // system(cmd.c_str());
-    // }
 
     return this->bestState;
 }

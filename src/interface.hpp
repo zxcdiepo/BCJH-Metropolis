@@ -3,6 +3,6 @@
 
 #include<iostream>
 #include<fstream>
-void readbcjhConfig();
+void MainActivity();
 
 #endif
