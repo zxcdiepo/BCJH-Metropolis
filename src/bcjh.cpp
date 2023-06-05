@@ -57,8 +57,9 @@ int main(int argc, char *argv[]) {
         loadChefTools(chefList0, chefList);
     } catch (Json::RuntimeError &e) {
         std::cout << "json文件格式不正确。请确认：1. "
-                     "已经上传了文件。2."
-                     "如果文件内容是手动复制的，确认文件已经复制完整。\n";
+                     "已经通过程序或者手动替换了data/userData.txt。2."
+                     "如果文件内容是手动复制的，确认文件已经复制完整。3."
+                     "去看目录下的word文档疑难解答。\n";
         exit(1);
     } catch (Json::LogicError &e) {
         std::cout << "json文件格式不正确。请确认文件来自白菜菊花而非图鉴网。\n";

@@ -45,6 +45,23 @@ class FlavorBuff {
                   << "; Tasty: " << this->tasty << std::endl;
     }
 };
+class RarityBuff {
+  public:
+    int rarityNum;
+    int rarityBuff;
+
+    RarityBuff() : rarityNum(0), rarityBuff(0) {}
+    RarityBuff(int rarityNum, int rarityBuff)
+        : rarityNum(rarityNum), rarityBuff(rarityBuff) {}
+    void add(const RarityBuff &r) {
+        this->rarityNum += r.rarityNum;
+        this->rarityBuff += r.rarityBuff;
+    }
+    void print() {
+        std::cout << "RarityBuff: DishNum: " << this->rarityBuff
+                  << "; DishBuff: " << this->rarityBuff << std::endl;
+    }
+};
 class Ability {
   public:
     int stirfry;
@@ -107,16 +124,18 @@ class Skill {
     CookAbility ability;
     AbilityBuff abilityBuff;
     FlavorBuff flavorBuff;
+    RarityBuff rarityBuff;
     MaterialCategoryBuff materialBuff;
     int coinBuff;
-    Skill(CookAbility ability, AbilityBuff abilityBuff, FlavorBuff flavorBuff,
+    Skill(CookAbility ability, AbilityBuff abilityBuff, FlavorBuff flavorBuff, RarityBuff(rarityBuff), 
           MaterialCategoryBuff materialBuff, int coinBuff)
-        : ability(ability), abilityBuff(abilityBuff), flavorBuff(flavorBuff),
+        : ability(ability), abilityBuff(abilityBuff), flavorBuff(flavorBuff), rarityBuff(rarityBuff),
           materialBuff(materialBuff), coinBuff(coinBuff) {}
     Skill() {
         this->ability = CookAbility();
         this->abilityBuff = AbilityBuff();
         this->flavorBuff = FlavorBuff();
+        this->rarityBuff = RarityBuff();
         this->materialBuff = MaterialCategoryBuff();
         this->coinBuff = 0;
     }
@@ -126,6 +145,7 @@ class Skill {
         this->ability.add(s.ability);
         this->abilityBuff.add(s.abilityBuff);
         this->flavorBuff.add(s.flavorBuff);
+        this->rarityBuff.add(s.rarityBuff);
         this->materialBuff.add(s.materialBuff);
         this->coinBuff += s.coinBuff;
     }
@@ -133,6 +153,7 @@ class Skill {
         this->ability.print();
         this->abilityBuff.print();
         this->flavorBuff.print();
+        this->rarityBuff.print();
         this->materialBuff.print();
         std::cout << "CoinBuff: " << this->coinBuff << std::endl;
     }

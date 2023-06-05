@@ -207,6 +207,10 @@ void Skill::loadJson(Json::Value &v) {
                     skill->materialBuff.fish = value;
                 } else if (type == "UseCreation") {
                     skill->materialBuff.creation = value;
+                } else if (type == "CookbookPrice") {
+                    int num = effect["conditionValue"].asInt();
+                    skill->rarityBuff.rarityNum = num;
+                    skill->rarityBuff.rarityBuff = value;
                 }
             }
         }

@@ -55,7 +55,11 @@ void interact(){
         cin >> id;
         char command[64] = "cd ../data&&bcjhDownload.exe ";
         concat(command, id);
-        system(command);
+        
+        int status = system(command);
+        cout << "status " << status << endl;
+        if (status == 1)
+            throw "找不到bcjhDownload.exe，请确认data文件下有这个下载程序且没有被杀毒软件杀掉";
 
         Json::Value tmpData;
         std::ifstream tmpDataF("../data/tmp.txt", std::ifstream::binary);
@@ -75,6 +79,7 @@ void interact(){
         std::ofstream userDataF("../data/userData.txt");
         userDataF << userdata;
         userDataF.close();
+        system("del \"../data/tmp.txt\"");
     }
 }
 
