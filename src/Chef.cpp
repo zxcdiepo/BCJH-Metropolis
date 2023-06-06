@@ -209,8 +209,7 @@ void Skill::loadJson(Json::Value &v) {
                     skill->materialBuff.creation = value;
                 } else if (type == "CookbookPrice") {
                     int num = effect["conditionValue"].asInt();
-                    skill->rarityBuff.rarityNum = num;
-                    skill->rarityBuff.rarityBuff = value;
+                    skill->rarityBuff.rarityBuff[num - 1] += value;
                 }
             }
         }

@@ -47,19 +47,15 @@ class FlavorBuff {
 };
 class RarityBuff {
   public:
-    int rarityNum;
-    int rarityBuff;
+    int rarityBuff[5];
 
-    RarityBuff() : rarityNum(0), rarityBuff(0) {}
-    RarityBuff(int rarityNum, int rarityBuff)
-        : rarityNum(rarityNum), rarityBuff(rarityBuff) {}
-    void add(const RarityBuff &r) {
-        this->rarityNum += r.rarityNum;
-        this->rarityBuff += r.rarityBuff;
-    }
+    RarityBuff() { for (int i = 0; i < 5; i++) this->rarityBuff[i]=0; }
+    RarityBuff(int r[5]) { for (int i = 0; i < 5; i++) this->rarityBuff[i]=r[i]; }
+    void add(const RarityBuff &r) { for (int i = 0; i < 5; i++) this->rarityBuff[i] += r.rarityBuff[i]; }
     void print() {
-        std::cout << "RarityBuff: DishNum: " << this->rarityBuff
-                  << "; DishBuff: " << this->rarityBuff << std::endl;
+        std::cout << "RarityBuff: ";
+        for (int i = 0; i < 5; i++)  std::cout << i + 1 << "火(" << this->rarityBuff[i] << ") ";
+        std::cout << std::endl;
     }
 };
 class Ability {
@@ -127,7 +123,7 @@ class Skill {
     RarityBuff rarityBuff;
     MaterialCategoryBuff materialBuff;
     int coinBuff;
-    Skill(CookAbility ability, AbilityBuff abilityBuff, FlavorBuff flavorBuff, RarityBuff(rarityBuff), 
+    Skill(CookAbility ability, AbilityBuff abilityBuff, FlavorBuff flavorBuff, RarityBuff rarityBuff, 
           MaterialCategoryBuff materialBuff, int coinBuff)
         : ability(ability), abilityBuff(abilityBuff), flavorBuff(flavorBuff), rarityBuff(rarityBuff),
           materialBuff(materialBuff), coinBuff(coinBuff) {}
