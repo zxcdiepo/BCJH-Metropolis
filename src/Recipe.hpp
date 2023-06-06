@@ -10,10 +10,6 @@
 #include "Values.hpp"
 #include <map>
 
-struct dishBuff {
-    int dishNum;
-    int dishBuff = 0;
-};
 class Materials {
   public:
     bool vegetable;

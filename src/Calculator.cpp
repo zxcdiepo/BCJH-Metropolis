@@ -117,6 +117,11 @@ BanquetInfo getPrice(Chef *chef, Recipe *recipe, BanquetRule r, bool verbose) {
                     recipe->cookAbility * chef->skill.abilityBuff +
                     recipe->materialCategories * chef->skill.materialBuff +
                     rb.dishBuff + (chef->coinBuffOn ? chef->skill.coinBuff : 0);
+    //strange buff handle start
+    if (~chef->skill.strangeBuff.ExcessCookbookNum.dishNum)
+        if (rb.dishNum >= chef->skill.strangeBuff.ExcessCookbookNum.dishNum)
+            skillBuff += chef->skill.strangeBuff.ExcessCookbookNum.dishBuff;
+    //strange buff handle end
     int buff = gradebuff + skillBuff + intentionAddBuff;
     int singlePrice =
         std::ceil((recipe->price + rule.baseRule.directAdd) *

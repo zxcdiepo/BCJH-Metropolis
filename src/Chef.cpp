@@ -208,8 +208,17 @@ void Skill::loadJson(Json::Value &v) {
                 } else if (type == "UseCreation") {
                     skill->materialBuff.creation = value;
                 } else if (type == "CookbookPrice") {
-                    int num = effect["conditionValue"].asInt();
-                    skill->rarityBuff.rarityBuff[num - 1] += value;
+                    std::string conditionType =
+                        effect["conditionType"].asString();
+                    if (conditionType == "CookbookRarity") {
+                        int num = effect["conditionValue"].asInt();
+                        skill->rarityBuff.rarityBuff[num - 1] += value;
+                    }
+                    if (conditionType == "ExcessCookbookNum") {
+                        int num = effect["conditionValue"].asInt();
+                        skill->strangeBuff.ExcessCookbookNum.dishNum = num;
+                        skill->strangeBuff.ExcessCookbookNum.dishBuff = value;
+                    }
                 }
             }
         }

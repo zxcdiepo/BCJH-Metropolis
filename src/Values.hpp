@@ -2,6 +2,10 @@
 #define VALUE_HPP
 #include <iostream>
 #include "include/json/json.h"
+struct dishBuff {
+    int dishNum;
+    int dishBuff = 0;
+};
 class MaterialCategoryBuff {
   public:
     int vegetable;
@@ -113,6 +117,29 @@ class CookAbility : public Ability {
     void print() { this->Ability::print("CookAbility: "); }
     int operator*(const AbilityBuff &a);
 };
+class StrangeBuff {
+  public:
+    dishBuff ExcessCookbookNum;
+
+    StrangeBuff() {
+        this->ExcessCookbookNum.dishNum = -1;
+    }
+    void add(const StrangeBuff &s) {
+        if (!(~s.ExcessCookbookNum.dishNum)) {
+            if (~this->ExcessCookbookNum.dishNum) {
+                this->ExcessCookbookNum.dishNum = s.ExcessCookbookNum.dishNum;
+                this->ExcessCookbookNum.dishBuff = s.ExcessCookbookNum.dishBuff;
+            } else {
+                //不许else,很难想象else会发生什么
+                this->ExcessCookbookNum.dishBuff += s.ExcessCookbookNum.dishBuff;
+            }
+        }
+    }
+    void print() {
+        std::cout << "ExcessCookbookNum: " << this->ExcessCookbookNum.dishNum 
+                << "(" << this->ExcessCookbookNum.dishBuff << ")" << std::endl;
+    }
+};
 class Skill {
   private:
   public:
@@ -122,17 +149,19 @@ class Skill {
     FlavorBuff flavorBuff;
     RarityBuff rarityBuff;
     MaterialCategoryBuff materialBuff;
+    StrangeBuff strangeBuff;
     int coinBuff;
     Skill(CookAbility ability, AbilityBuff abilityBuff, FlavorBuff flavorBuff, RarityBuff rarityBuff, 
-          MaterialCategoryBuff materialBuff, int coinBuff)
+          MaterialCategoryBuff materialBuff, StrangeBuff strangeBuff,int coinBuff)
         : ability(ability), abilityBuff(abilityBuff), flavorBuff(flavorBuff), rarityBuff(rarityBuff),
-          materialBuff(materialBuff), coinBuff(coinBuff) {}
+          materialBuff(materialBuff), strangeBuff(strangeBuff), coinBuff(coinBuff) {}
     Skill() {
         this->ability = CookAbility();
         this->abilityBuff = AbilityBuff();
         this->flavorBuff = FlavorBuff();
         this->rarityBuff = RarityBuff();
         this->materialBuff = MaterialCategoryBuff();
+        this->strangeBuff = StrangeBuff();
         this->coinBuff = 0;
     }
     Skill getSkill(int id) { return skillList[id]; }
@@ -143,6 +172,7 @@ class Skill {
         this->flavorBuff.add(s.flavorBuff);
         this->rarityBuff.add(s.rarityBuff);
         this->materialBuff.add(s.materialBuff);
+        this->strangeBuff.add(s.strangeBuff);
         this->coinBuff += s.coinBuff;
     }
     void print() {
