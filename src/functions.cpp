@@ -294,10 +294,10 @@ double f::linear(int stepMax, int step, double tMax, double tMin) {
     return (tMax - tMin) * (1 - step / (double)stepMax) + tMin;
 }
 double f::t_dist_fast(int stepMax, int step, double tMax, double tMin) {
-    return tMax / (1 + step * step / 300000.0);
+    return tMax / (1 + 1ll * step * step / 300000.0);
 }
 double f::t_dist_slow(int stepMax, int step, double tMax, double tMin) {
-    return tMax / (1 + step * step / 1000000.0);
+    return tMax / (1 + 1ll * step * step / 1000000.0);
 }
 double f::linear_mul(int stepMax, int step, double tMax, double tMin) {
     return tMax / (1 + step / 100000.0);
