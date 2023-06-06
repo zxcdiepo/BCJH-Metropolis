@@ -158,7 +158,7 @@ void Skill::loadJson(Json::Value &v) {
         skillList[id] = Skill();
         for (auto effect : skill["effect"]) {
             auto skill = &skillList[id];
-            if (effect["condition"].asString() != "Global") {
+            if (effect["condition"].asString() == "Self") {
                 std::string type = effect["type"].asString();
                 int value = effect["value"].asInt();
                 if (type == "Gold_Gain") {
@@ -219,6 +219,60 @@ void Skill::loadJson(Json::Value &v) {
                         skill->strangeBuff.ExcessCookbookNum.dishNum = num;
                         skill->strangeBuff.ExcessCookbookNum.dishBuff = value;
                     }
+                }
+            } else
+            if (effect["condition"].asString() == "Partial") {
+                std::string type = effect["type"].asString();
+                std::string condition = effect["condition"].asString();
+                int value = effect["value"].asInt();
+                // 只考虑目前存在的技法和售价光环，后续如果有新的再加
+                if (type == "Stirfry") {
+                    skill->halo = true;
+                    skill->skillHalo.stirfry = value;
+                } else if (type == "Bake") {
+                    skill->halo = true;
+                    skill->skillHalo.bake = value;
+                } else if (type == "Boil") {
+                    skill->halo = true;
+                    skill->skillHalo.boil = value;
+                } else if (type == "Steam") {
+                    skill->halo = true;
+                    skill->skillHalo.steam = value;
+                } else if (type == "Fry") {
+                    skill->halo = true;
+                    skill->skillHalo.fry = value;
+                } else if (type == "Knife") {
+                    skill->halo = true;
+                    skill->skillHalo.knife = value;
+                // TODO : 年糕的条件售价环
+                // } else if (type == "UseFry") { 
+                //     skill->halo = true;
+                //     skill->buffHalo.fry = value;
+                }
+            } else
+            if (effect["condition"].asString() == "Next") {
+                std::string type = effect["type"].asString();
+                std::string condition = effect["condition"].asString();
+                int value = effect["value"].asInt();
+                // 只考虑目前存在的技法和售价光环，后续如果有新的再加
+                if (type == "Stirfry") {
+                    skill->halo_next = true;
+                    skill->skillHaloNext.stirfry = value;
+                } else if (type == "Bake") {
+                    skill->halo_next = true;
+                    skill->skillHaloNext.bake = value;
+                } else if (type == "Boil") {
+                    skill->halo_next = true;
+                    skill->skillHaloNext.boil = value;
+                } else if (type == "Steam") {
+                    skill->halo_next = true;
+                    skill->skillHaloNext.steam = value;
+                } else if (type == "Fry") {
+                    skill->halo_next = true;
+                    skill->skillHaloNext.fry = value;
+                } else if (type == "Knife") {
+                    skill->halo_next = true;
+                    skill->skillHaloNext.knife = value;
                 }
             }
         }

@@ -125,13 +125,13 @@ class StrangeBuff {
         this->ExcessCookbookNum.dishNum = -1;
     }
     void add(const StrangeBuff &s) {
-        if (!(~s.ExcessCookbookNum.dishNum)) {
+        if (~s.ExcessCookbookNum.dishNum) {
             if (~this->ExcessCookbookNum.dishNum) {
+                //不许不else,很难想象else会发生什么
+                this->ExcessCookbookNum.dishBuff += s.ExcessCookbookNum.dishBuff;
+            } else {
                 this->ExcessCookbookNum.dishNum = s.ExcessCookbookNum.dishNum;
                 this->ExcessCookbookNum.dishBuff = s.ExcessCookbookNum.dishBuff;
-            } else {
-                //不许else,很难想象else会发生什么
-                this->ExcessCookbookNum.dishBuff += s.ExcessCookbookNum.dishBuff;
             }
         }
     }
@@ -139,6 +139,30 @@ class StrangeBuff {
         std::cout << "ExcessCookbookNum: " << this->ExcessCookbookNum.dishNum 
                 << "(" << this->ExcessCookbookNum.dishBuff << ")" << std::endl;
     }
+};
+// 技法光环
+class SkillHalo : public Ability {
+  public:
+    SkillHalo(int stirfry, int bake, int boil, int steam, int fry, int knife)
+        : Ability(stirfry, bake, boil, steam, fry, knife) {}
+    SkillHalo() : Ability() {}
+    void print() { this->Ability::print("SkillHalo: "); }
+};
+// 售价光环
+class BuffHalo : public Ability {
+  public:
+    BuffHalo(int stirfry, int bake, int boil, int steam, int fry, int knife)
+        : Ability(stirfry, bake, boil, steam, fry, knife) {}
+    BuffHalo() : Ability() {}
+    void print() { this->Ability::print("BuffHalo: "); }
+};
+// 技法光环:Next
+class SkillHaloNext : public Ability {
+  public:
+    SkillHaloNext(int stirfry, int bake, int boil, int steam, int fry, int knife)
+        : Ability(stirfry, bake, boil, steam, fry, knife) {}
+    SkillHaloNext() : Ability() {}
+    void print() { this->Ability::print("SkillHaloNext: "); }
 };
 class Skill {
   private:
@@ -151,10 +175,19 @@ class Skill {
     MaterialCategoryBuff materialBuff;
     StrangeBuff strangeBuff;
     int coinBuff;
+    bool halo;
+    SkillHalo skillHalo;
+    BuffHalo buffHalo;
+    bool halo_next;
+    SkillHaloNext skillHaloNext;
     Skill(CookAbility ability, AbilityBuff abilityBuff, FlavorBuff flavorBuff, RarityBuff rarityBuff, 
-          MaterialCategoryBuff materialBuff, StrangeBuff strangeBuff,int coinBuff)
+          MaterialCategoryBuff materialBuff, StrangeBuff strangeBuff,int coinBuff,
+          bool halo, SkillHalo skillHalo, BuffHalo buffHalo,
+          bool halo_next, SkillHaloNext skillHaloNext)
         : ability(ability), abilityBuff(abilityBuff), flavorBuff(flavorBuff), rarityBuff(rarityBuff),
-          materialBuff(materialBuff), strangeBuff(strangeBuff), coinBuff(coinBuff) {}
+          materialBuff(materialBuff), strangeBuff(strangeBuff), coinBuff(coinBuff),
+          halo(halo), skillHalo(skillHalo), buffHalo(buffHalo), 
+          halo_next(halo_next), skillHaloNext(skillHaloNext){}
     Skill() {
         this->ability = CookAbility();
         this->abilityBuff = AbilityBuff();
@@ -163,6 +196,11 @@ class Skill {
         this->materialBuff = MaterialCategoryBuff();
         this->strangeBuff = StrangeBuff();
         this->coinBuff = 0;
+        this->halo = false;
+        this->skillHalo = SkillHalo();
+        this->buffHalo = BuffHalo();
+        this->halo_next = false;
+        this->skillHaloNext = SkillHaloNext();
     }
     Skill getSkill(int id) { return skillList[id]; }
     static void loadJson(Json::Value &v);
@@ -174,6 +212,11 @@ class Skill {
         this->materialBuff.add(s.materialBuff);
         this->strangeBuff.add(s.strangeBuff);
         this->coinBuff += s.coinBuff;
+        this->halo |= s.halo;
+        this->skillHalo.add(s.skillHalo);
+        this->buffHalo.add(s.buffHalo);
+        this->halo_next |= s.halo_next;
+        this->skillHaloNext.add(s.skillHaloNext);
     }
     void print() {
         this->ability.print();
@@ -181,7 +224,17 @@ class Skill {
         this->flavorBuff.print();
         this->rarityBuff.print();
         this->materialBuff.print();
+        this->strangeBuff.print();
         std::cout << "CoinBuff: " << this->coinBuff << std::endl;
+        if (this->halo){
+            std::cout << "Halo: " << std::endl;
+            this->skillHalo.print();
+            this->buffHalo.print();
+        }
+        if (this->halo_next){
+            std::cout << "Halo_next: " << std::endl;
+            this->skillHaloNext.print();
+        }
     }
 };
 enum AbilityEnum {
