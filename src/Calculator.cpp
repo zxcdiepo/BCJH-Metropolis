@@ -118,10 +118,12 @@ BanquetInfo getPrice(Chef *chef, Recipe *recipe, BanquetRule r, bool verbose) {
                     recipe->materialCategories * chef->skill.materialBuff +
                     rb.dishBuff + (chef->coinBuffOn ? chef->skill.coinBuff : 0);
     //strange buff handle start
+    int strangeBuff = 0;
     if (~chef->skill.strangeBuff.ExcessCookbookNum.dishNum) {
         if (rb.dishNum >= chef->skill.strangeBuff.ExcessCookbookNum.dishNum)
-            skillBuff += chef->skill.strangeBuff.ExcessCookbookNum.dishBuff;
+            strangeBuff += chef->skill.strangeBuff.ExcessCookbookNum.dishBuff;
     }
+    skillBuff += strangeBuff;
     //strange buff handle end
     int buff = gradebuff + skillBuff + intentionAddBuff;
     int singlePrice =
@@ -138,7 +140,8 @@ BanquetInfo getPrice(Chef *chef, Recipe *recipe, BanquetRule r, bool verbose) {
                   << recipe->cookAbility * chef->skill.abilityBuff << " + 食材"
                   << recipe->materialCategories * chef->skill.materialBuff
                   << " + 修炼" << rb.dishBuff << " + 金币"
-                  << (chef->coinBuffOn ? chef->skill.coinBuff : 0) << ")"
+                  << (chef->coinBuffOn ? chef->skill.coinBuff : 0) 
+                  << " + 其它" << strangeBuff << ")"
                   << std::endl;
         std::cout << "Intention: (基础+" << rule.baseRule.directAdd << "，+"
                   << intentionBaseBuff << "%；售价+" << intentionAddBuff

@@ -32,15 +32,19 @@ int T_MAX_CHEF;
 int T_MAX_RECIPE;
 
 void readINI();
+void Lincece();
 void interact();
+void examine_iter();
 void concat(char*, const char*);
 
 void MainActivity() {
     readINI();
+    Lincece();
     if (GUIDE) interact();
     if (NUM_GUESTS < 1 || NUM_GUESTS > 11)
         throw "NUM_GUEST Error";
     NUM_CHEFS = NUM_GUESTS * CHEFS_PER_GUEST;
+    examine_iter();
     return;
 }
 
@@ -80,6 +84,25 @@ void interact(){
         userDataF << userdata;
         userDataF.close();
         system("del \"../data/tmp.txt\"");
+    }
+}
+
+void Lincece() {
+    cout << "风云宴全自动计算器，桌面版" << endl;
+    cout << "\t桌面版作者:威严扫地机" << endl;
+    cout << "\t原项目核心算法作者:ajdx" << endl;
+    cout << "\t特别致谢:萤火" << endl;
+    cout << "桌面版交流群：370017786，二群：241168853" << endl;
+    cout << endl;
+}
+
+void examine_iter() {
+    if (1ll * ITER_CHEF * ITER_RECIPE <= 10000000ll) {
+        cout << "!!!检测到迭代次数过少，请阅读目录下的说明文档更改迭代数!!!" << endl;
+        cout << "!!!检测到迭代次数过少，请阅读目录下的说明文档更改迭代数!!!" << endl;
+        cout << "!!!检测到迭代次数过少，请阅读目录下的说明文档更改迭代数!!!" << endl;
+        cout << endl;
+        system("pause");
     }
 }
 
