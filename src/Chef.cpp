@@ -7,7 +7,6 @@
 #include "globalConfig.hpp"
 #include "Calculator.hpp"
 #include "utils/json.hpp"
-#include "../toolEquipped.hpp"
 // #define jsonStr2Int(v) atoi(v.asCString())
 CookAbility Chef::globalAbilityBuff;
 int Chef::globalAbilityMale = 0;
@@ -78,7 +77,7 @@ void loadChef(std::map<int, Chef> &chefList) {
     auto chefP = chefList.begin();
     while (chefP != chefList.end()) {
         auto chef = &chefP->second;
-        toolEquipped(chef);
+        if (AVOID_TOOL) chef->tool = NO_TOOL;
         chefP++;
     }
 }

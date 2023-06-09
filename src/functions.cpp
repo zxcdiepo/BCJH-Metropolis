@@ -4,7 +4,8 @@
 #include "banquetRule.hpp"
 #include "exception.hpp"
 
-const char* guestName[11] = {"蓝采和", "吕洞宾", "韩湘子", "玉贵人", "苏妲己", "何仙姑", "铁拐李"};
+const char* guestName[11] = {"蓝采和", "吕洞宾", "韩湘子", "玉贵人", "苏妲己", "何仙姑", "铁拐李", 
+                            "何仙姑2", "胡喜媚", "未知", "未知"};
 
 namespace r0 {
 States randomRecipe(States &, CList *, RList *, CRPairs *);

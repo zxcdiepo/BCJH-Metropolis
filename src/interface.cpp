@@ -1,5 +1,6 @@
 #include<iostream>
 #include<fstream>
+#include<windows.h>
 #include "globalConfig.hpp"
 #include "include/simpleini/SimpleIni.h"
 #include "include/json/json.h"
@@ -23,6 +24,7 @@ int guestList[MAX_GUESTS];
 int ITER_CHEF;
 int ITER_RECIPE;
 int TARGET_SCORE_APPROXIMATE;
+bool AVOID_TOOL;
 bool AVOID_CHEF_1;
 bool AVOID_CHEF_2;
 bool AVOID_CHEF_3;
@@ -97,12 +99,12 @@ void Lincece() {
 }
 
 void examine_iter() {
-    if (1ll * ITER_CHEF * ITER_RECIPE <= 10000000ll) {
-        cout << "!!!检测到迭代次数过少，请阅读目录下的说明文档更改迭代数!!!" << endl;
-        cout << "!!!检测到迭代次数过少，请阅读目录下的说明文档更改迭代数!!!" << endl;
-        cout << "!!!检测到迭代次数过少，请阅读目录下的说明文档更改迭代数!!!" << endl;
-        cout << endl;
-        system("pause");
+    if (1ll * ITER_CHEF * ITER_RECIPE < 100000000ll) {
+        MessageBoxA(GetForegroundWindow(),
+        "检测到迭代次数过少!!!\n"
+        "请阅读目录下的说明文档更改迭代数!!!\n"
+        "否则跑分效果极差，不要说你用过我的计算器",
+        "警告", 1);
     }
 }
 
@@ -163,6 +165,7 @@ void readINI(){
     ITER_CHEF = stoi(ini.GetValue("calculator", "ITER_CHEF", "10000"));
     ITER_RECIPE = stoi(ini.GetValue("calculator", "ITER_RECIPE", "10000"));
     TARGET_SCORE_APPROXIMATE = stoi(ini.GetValue("calculator", "TARGET_SCORE_APPROXIMATE", "2000000"));
+    AVOID_TOOL = stobool(ini.GetValue("calculator", "AVOID_TOOL", "false"));
 
     AVOID_CHEF_1 = stobool(ini.GetValue("calculator", "AVOID_CHEF_1", "true"));
     AVOID_CHEF_2 = stobool(ini.GetValue("calculator", "AVOID_CHEF_2", "true"));
