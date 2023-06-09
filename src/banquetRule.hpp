@@ -911,10 +911,10 @@ int banquetRule8(BanquetStrictRule **strictRule, BanquetLenientRule **lenientRul
             break;
         }
     }
-    // 条件：四火：下道料理饱腹感-3
-    for (int i = d + 3; i < d + 5; i++) {
+    // 条件：四火：本道料理饱腹感-3
+    for (int i = d + 3; i < d + 6; i++) {
         if (s.recipe[i]->rarity == 4) {
-            lenientRule[i + 1]->addRule.full += -3;
+            lenientRule[i]->addRule.full += -3;
             break;
         }
     }
